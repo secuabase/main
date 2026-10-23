@@ -41,6 +41,7 @@ Sentry, PostHog EU. Slack incoming webhook for #secuabase-ops.
 - `docs/phases/` — the weekly phase docs Bugra pastes in (01-Phase-1-Foundation.md …).
 - `docs/handoffs/` — the Friday hand-off note for each phase (`phase-N.md`). The next phase starts from it.
 - `src/app/` — Next.js routes. Brand tokens live in `src/app/globals.css`.
+- `docs/integrations.md` — which services are connected, project ids, DNS records.
 - `.env.example` — every env var name, no values. Real values only in Vercel / Supabase settings.
 
 ## Commands
