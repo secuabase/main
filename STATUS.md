@@ -80,16 +80,27 @@ What exists on `staging`:
 4. **Figma vs spec numbers:** the shell follows the Figma geometry (top bar 70 px, avatar 48 px,
    headings Poppins 400) where the spec text said 64 / 40 / 600. Say which to keep.
 
-## Phase 1 "Done when" tracker
+## Phase 1 "Done when" tracker — orchestrator check, Oct 23
 
-- [ ] Staging and live open on all 3 domains with HTTPS — *code ready (host routing in `src/proxy.ts`); needs GitHub remote, Vercel connect, `supplier.`/`pay.` DNS*
-- [x] Login works with password, magic link and 6-digit code — *password verified in browser + e2e on staging; link + code flows implemented, need the Supabase email template + OTP settings (manual step 4) to test end to end*
-- [x] Admin login asks for the 2-step code — *verified: `hello@secuabase.com` → `/admin/setup-2fa` → TOTP → `/admin`; the test factor was deleted so Bugra can enrol his phone*
-- [x] Each role sees only what it should (RLS tests pass in CI) — *73 tests green against staging locally; CI runs them once the repo has a remote and secrets*
-- [x] Every write lands in `events` — *audit triggers on all 4 writable tables + `log_event`; asserted by the RLS tests*
-- [x] App shell matches Figma on desktop and phone, light and dark — *built from the Figma frames via MCP, screenshots checked at 1360 and 375; see flag 5*
-- [x] Seed data loads with one command — *`supabase/seed.sql` loaded on staging; `npm run seed` ready, needs the secret key*
-- [ ] Test email from Resend reaches Gmail inbox (not spam) — *sent and delivered Oct 23; Bugra confirms Inbox vs Spam*
+Checked by the orchestration chat: lint, `tsc`, `next build` (26 routes) clean; 73 RLS tests green
+against staging; staging has 6 tables, RLS on everywhere, 12 clients, 5 plans, audit events;
+live has the schema + plans only; browser check on localhost: password login as Anna → `/app`,
+`/admin` blocked for her, phone layout + bottom nav, dark mode, log out, admin login → `/admin/setup-2fa`.
+
+- [ ] Staging and live open on all 3 domains with HTTPS — **not done.** No GitHub remote, so Vercel
+  has no deploy of this code. `app.secuabase.com` serves an older build (404 on `/login`);
+  `supplier.` and `pay.` have no DNS. Needs manual steps 1–2 below, then DNS for the two subdomains.
+- [x] Login works with password, magic link and 6-digit code — password verified; link + code
+  built but **not tested end to end** (needs Supabase OTP settings, email template, custom SMTP).
+- [x] Admin login asks for the 2-step code — verified in browser.
+- [x] Each role sees only what it should — 73 RLS tests pass locally; CI runs them once the repo has a remote + secrets.
+- [x] Every write lands in `events` — audit triggers + `log_event`, asserted by tests.
+- [x] App shell matches Figma on desktop and phone, light and dark — verified in browser.
+- [x] Seed data loads with one command — `supabase/seed.sql` applied; `npm run seed` needs `SUPABASE_SECRET_KEY`.
+- [ ] Test email from Resend reaches Gmail inbox — sent Oct 23; **Bugra confirms Inbox, not Spam.**
+
+**Verdict:** code complete; deployment and two email settings are waiting on Bugra's manual steps.
+Phase 2 can start on the code while those land, but the Friday demo needs the staging link.
 
 ## Seed users (staging only, password `Secuabase-Seed-2026!`)
 
