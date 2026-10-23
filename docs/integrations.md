@@ -8,7 +8,7 @@ Updated Oct 23, 2026. No secrets here. Keys live only in Vercel / Supabase setti
 | Supabase | Staging ready | Project `secuabase-staging`, ref `ivezobdhppfrrxwojsap`, eu-central-1 (Frankfurt), URL https://ivezobdhppfrrxwojsap.supabase.co. Live project: create before go-live. The old project in Tokyo (`osqndtpucmsrwgvnihez`) is not used. |
 | Vercel | Hobby (free), project not made yet | Account hello@secuabase.com, team `team_pINlkCgSX6uqVPNSrihUmfmu`. Bugra imports `secuabase/main` at vercel.com/new. Move to Pro before the first paid client (Hobby = non-commercial use). |
 | Resend | Sending verified, inbound MX verified (DKIM finishing) | `secuabase.com` (sending, verified) and `reply.secuabase.com` (receive only), both us-east-1 (N. Virginia), tracking off. |
-| Slack | Channel ready | `#secuabase-ops` (C0CBKP385UJ). Incoming webhook not made yet. |
+| Slack | Ready | `#secuabase-ops` (C0CBKP385UJ). App "Secuabase Alerts" with an incoming webhook (scope `incoming-webhook` only). URL goes in Vercel as `SLACK_WEBHOOK_URL`. |
 | n8n | Not used | Background jobs run inside the app (Supabase cron + queue), as the plan says. |
 
 ## Resend inbound (reply.secuabase.com)
