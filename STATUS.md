@@ -37,10 +37,15 @@ Its `docs/integrations.md` records facts missing here:
 - Slack: channel `#secuabase-ops` (C0CBKP385UJ), app "Secuabase Alerts" with an incoming webhook.
 - Resend inbound addresses planned as `req-<id>@reply.secuabase.com`.
 **Reconciled and pushed Oct 23 afternoon:** remote history merged into ours (our files kept, their
-`docs/integrations.md` kept, their pnpm lock / postcss / duplicate plan dropped). Pushed `main`
-(= Next 16 scaffold + docs, no auth yet, so `/login` is 404 on production until the demo passes)
-and `staging` (= all Phase 1 work).
+`docs/integrations.md` kept, their pnpm lock / postcss / duplicate plan dropped). Pushed `main` and `staging`; later the same evening `main` was fast-forwarded to `staging`, so both hold all Phase 1 work.
 
+- **Live (Oct 23 evening):** `main` fast-forwarded to `staging` on Bugra's request and pushed.
+  https://app.secuabase.com now serves Phase 1: `/login` 200, `/` → `/login`, `/app` and `/admin`
+  redirect to login. Checked in the browser (desktop, light): matches the Figma login. **Unknown:**
+  which Supabase project production uses — the URL is server-side only. Test: log in at
+  app.secuabase.com with `hello@secuabase.com` + the seed password. Works → production points at
+  **staging** (switch Vercel Production env vars to the live project before any real client).
+  "Wrong email or password" → production points at **live** (correct; admin user comes in Phase 2).
 - **Staging preview:** https://secuabase-dashboard-git-staging-secuabase.vercel.app — deployed by
   Vercel on push. It sits behind Vercel **Deployment Protection** (redirects to vercel.com SSO):
   open it while logged in to Vercel, or turn protection off for previews in Vercel → Settings →
