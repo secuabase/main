@@ -1,0 +1,152 @@
+{
+  "primary": {
+    "name": "Persian blue",
+    "hex": "#2634B9",
+    "rgb": [
+      38,
+      52,
+      185
+    ],
+    "use": "Buttons, links, key data, brand fields."
+  },
+  "ink": {
+    "name": "Midnight blue",
+    "hex": "#1B207C",
+    "rgb": [
+      27,
+      32,
+      124
+    ],
+    "use": "All text. Dark sections."
+  },
+  "secondary": {
+    "name": "Byzantine blue",
+    "hex": "#4759D5",
+    "rgb": [
+      71,
+      89,
+      213
+    ],
+    "use": "Charts, second layer of the mark, 'In review'."
+  },
+  "signal": {
+    "name": "Orange",
+    "hex": "#F76A2B",
+    "rgb": [
+      247,
+      106,
+      43
+    ],
+    "use": "The dot. Highlights only. Never white text on it."
+  },
+  "success": {
+    "name": "Emerald",
+    "hex": "#0B7A5B",
+    "rgb": [
+      11,
+      122,
+      91
+    ],
+    "use": "Verified, compliant, filed, positive change."
+  },
+  "alert": {
+    "name": "Persian red",
+    "hex": "#C23C25",
+    "rgb": [
+      194,
+      60,
+      37
+    ],
+    "use": "Missing evidence, risks, penalties."
+  },
+  "surface": {
+    "name": "Platinum",
+    "hex": "#D9DADC",
+    "rgb": [
+      217,
+      218,
+      220
+    ],
+    "use": "Borders, quiet fills, second layer on blue."
+  },
+  "ground": {
+    "name": "Light ground",
+    "hex": "#F4F5F8",
+    "rgb": [
+      244,
+      245,
+      248
+    ],
+    "use": "Page background."
+  },
+  "card": {
+    "name": "White",
+    "hex": "#FFFFFF",
+    "rgb": [
+      255,
+      255,
+      255
+    ],
+    "use": "Cards and panels."
+  },
+  "muted": {
+    "name": "Muted ink",
+    "hex": "#50548F",
+    "rgb": [
+      80,
+      84,
+      143
+    ],
+    "use": "Secondary text on light."
+  },
+  "muted-dark": {
+    "name": "Muted on dark",
+    "hex": "#C9CCF3",
+    "rgb": [
+      201,
+      204,
+      243
+    ],
+    "use": "Secondary text on Midnight."
+  },
+  "tint": {
+    "name": "Blue tint",
+    "hex": "#E9EBFB",
+    "rgb": [
+      233,
+      235,
+      251
+    ],
+    "use": "Chips, icon boxes, selected rows."
+  },
+  "line": {
+    "name": "Card border",
+    "hex": "#E1E2EA",
+    "rgb": [
+      225,
+      226,
+      234
+    ],
+    "use": "1px card and table borders."
+  },
+  "success-tint": {
+    "name": "Emerald tint",
+    "hex": "#E3F5EC",
+    "rgb": [
+      227,
+      245,
+      236
+    ],
+    "use": "Background of the Verified badge."
+  },
+  "success-dark": {
+    "name": "Mint",
+    "hex": "#3AD29A",
+    "rgb": [
+      58,
+      210,
+      154
+    ],
+    "use": "Success on Midnight (dark mode)."
+  }
+}

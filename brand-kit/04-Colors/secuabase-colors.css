@@ -1,0 +1,17 @@
+:root {
+  --sb-primary: #2634B9;  /* Persian blue: Buttons, links, key data, brand fields. */
+  --sb-ink: #1B207C;  /* Midnight blue: All text. Dark sections. */
+  --sb-secondary: #4759D5;  /* Byzantine blue: Charts, second layer of the mark, 'In review'. */
+  --sb-signal: #F76A2B;  /* Orange: The dot. Highlights only. Never white text on it. */
+  --sb-success: #0B7A5B;  /* Emerald: Verified, compliant, filed, positive change. */
+  --sb-alert: #C23C25;  /* Persian red: Missing evidence, risks, penalties. */
+  --sb-surface: #D9DADC;  /* Platinum: Borders, quiet fills, second layer on blue. */
+  --sb-ground: #F4F5F8;  /* Light ground: Page background. */
+  --sb-card: #FFFFFF;  /* White: Cards and panels. */
+  --sb-muted: #50548F;  /* Muted ink: Secondary text on light. */
+  --sb-muted-dark: #C9CCF3;  /* Muted on dark: Secondary text on Midnight. */
+  --sb-tint: #E9EBFB;  /* Blue tint: Chips, icon boxes, selected rows. */
+  --sb-line: #E1E2EA;  /* Card border: 1px card and table borders. */
+  --sb-success-tint: #E3F5EC;  /* Emerald tint: Background of the Verified badge. */
+  --sb-success-dark: #3AD29A;  /* Mint: Success on Midnight (dark mode). */
+}

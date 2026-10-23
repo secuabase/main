@@ -1,0 +1,16 @@
+Secuabase type — Poppins (free, Google Fonts, SIL Open Font License)
+
+Web:  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+CSS:  font-family: 'Poppins', system-ui, sans-serif;
+
+Role        Size / line   Weight          Tracking   Use
+Display     96 / 96       600 SemiBold    -4%        Covers, one big number
+H1          60 / 64       600 SemiBold    -3.5%      Slide and page titles
+H2          34 / 42       600 SemiBold    -2%        Section heads, card titles
+H3          22 / 30       600 SemiBold    -1%        Small titles, table heads
+Body        17 / 26       400 Regular     0          Running text
+Small       14 / 20       400 Regular     0          Captions, notes, sources
+Label       13 / 16       600 SemiBold    +8% CAPS   Eyebrows, badges, tags
+
+Wordmark: "secuabase", lowercase, Poppins SemiBold, -2% tracking. Use the logo files, never type it.
+Sentence case everywhere. No ALL CAPS headlines. Numbers in tabular figures when they line up.

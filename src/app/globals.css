@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Secuabase v3 tokens — light */
+:root {
+  --sb-primary: #2634b9;
+  --sb-ink: #1b207c;
+  --sb-secondary: #4759d5;
+  --sb-signal: #f76a2b;
+  --sb-success: #0b7a5b;
+  --sb-alert: #c23c25;
+  --sb-surface: #d9dadc;
+  --sb-ground: #f4f5f8;
+  --sb-card: #ffffff;
+  --sb-muted: #50548f;
+  --sb-tint: #e9ebfb;
+  --sb-line: #e1e2ea;
+  --sb-success-tint: #e3f5ec;
+  --sb-alert-tint: #fbe9e6;
+  --sb-glass: rgba(255, 255, 255, 0.72);
+  --sb-glass-border: rgba(255, 255, 255, 0.8);
+  --sb-text: var(--sb-ink);
+  --sb-text-muted: var(--sb-muted);
+  --sb-on-primary: #ffffff;
+  --sb-muted-on-dark: #c9ccf3;
+}
+
+/* Dark mode (class on <html>) */
+.dark {
+  --sb-ground: #0f1346;
+  --sb-card: #1b207c;
+  --sb-tint: rgba(255, 255, 255, 0.08);
+  --sb-line: rgba(255, 255, 255, 0.12);
+  --sb-surface: rgba(255, 255, 255, 0.16);
+  --sb-success: #3ad29a;
+  --sb-success-tint: rgba(58, 210, 154, 0.16);
+  --sb-alert-tint: rgba(194, 60, 37, 0.2);
+  --sb-glass: rgba(27, 32, 124, 0.72);
+  --sb-glass-border: rgba(255, 255, 255, 0.14);
+  --sb-text: #ffffff;
+  --sb-text-muted: #c9ccf3;
+}
+
+@theme inline {
+  --color-primary: var(--sb-primary);
+  --color-ink: var(--sb-ink);
+  --color-secondary: var(--sb-secondary);
+  --color-signal: var(--sb-signal);
+  --color-success: var(--sb-success);
+  --color-alert: var(--sb-alert);
+  --color-surface: var(--sb-surface);
+  --color-ground: var(--sb-ground);
+  --color-card: var(--sb-card);
+  --color-muted: var(--sb-text-muted);
+  --color-tint: var(--sb-tint);
+  --color-line: var(--sb-line);
+  --color-success-tint: var(--sb-success-tint);
+  --color-alert-tint: var(--sb-alert-tint);
+  --color-glass: var(--sb-glass);
+  --color-glass-border: var(--sb-glass-border);
+  --color-text: var(--sb-text);
+  --color-on-primary: var(--sb-on-primary);
+  --color-muted-on-dark: var(--sb-muted-on-dark);
+
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+
+  --radius-card: 24px;
+  --radius-pill: 9999px;
+  --shadow-card: 0 1px 2px rgba(27, 32, 124, 0.04), 0 8px 24px rgba(27, 32, 124, 0.06);
+  --shadow-glass: 0 8px 32px rgba(27, 32, 124, 0.08);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--sb-ground);
+  color: var(--sb-text);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum";
+}
+
+/* Page background with the three soft Persian-blue glows from the Figma frames */
+.app-bg {
+  background-color: var(--sb-ground);
+  background-image:
+    radial-gradient(320px 240px at 60% 70%, rgba(38, 52, 185, 0.1), transparent 70%),
+    radial-gradient(300px 230px at 96% 8%, rgba(38, 52, 185, 0.13), transparent 70%),
+    radial-gradient(280px 210px at 4% 14%, rgba(38, 52, 185, 0.2), transparent 70%);
+  background-attachment: fixed;
+}
+
+.dark .app-bg {
+  background-image:
+    radial-gradient(320px 240px at 60% 70%, rgba(71, 89, 213, 0.18), transparent 70%),
+    radial-gradient(300px 230px at 96% 8%, rgba(71, 89, 213, 0.22), transparent 70%),
+    radial-gradient(280px 210px at 4% 14%, rgba(71, 89, 213, 0.28), transparent 70%);
+}
+
+/* Glass bar used by the top bar and some cards */
+.glass {
+  background: var(--sb-glass);
+  border: 1px solid var(--sb-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Primary blue gradient card (hero / KPI) */
+.card-blue {
+  background: linear-gradient(160deg, #2634b9 0%, #1b207c 100%);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sb-primary);
+  outline-offset: 2px;
+}
