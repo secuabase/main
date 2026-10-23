@@ -4,7 +4,7 @@ Oct 23, 2026 · branch `staging` · paste this as the body of the PR `staging` �
 
 ## What is done
 
-**Database (staging `ivezobdhppfrrxwojsap`, applied and verified)**
+**Database (applied on staging `ivezobdhppfrrxwojsap` and live `hjxzlspisflxqsiyigmy`)**
 - 5 migrations in `supabase/migrations/`: enums, `profiles`, `plans`, `clients`, `client_members`,
   `admin_settings`, `events`; helper functions `is_admin`, `client_role`, `has_client_role`,
   `log_event` (security definer, fixed search_path); `auth.users` → `profiles` trigger;
@@ -46,8 +46,8 @@ factor was deleted afterwards so Bugra enrols his own phone.
 
 - **No staging link yet.** There is no GitHub remote, so nothing is deployed. Steps 1–2 in
   `STATUS.md` (GitHub repo, Vercel connect, `supplier.`/`pay.` DNS) produce the staging URL.
-- **Live database** still empty: applying the 5 migrations to `hjxzlspisflxqsiyigmy` needs Bugra's
-  explicit go-ahead (the automated attempt was blocked as a production change).
+- **Live database** has the same 5 migrations (applied Oct 23 with Bugra's go-ahead): 6 tables,
+  RLS on, 5 plans, no users or clients. Bugra's admin user is created in Phase 2.
 - **Magic link + 6-digit code end to end** needs the Supabase dashboard settings (OTP 6 digits,
   900 s, the two email templates in `docs/email-templates/`, custom SMTP via Resend). Code paths
   are complete and the password flow is verified.

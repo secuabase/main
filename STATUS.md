@@ -1,6 +1,6 @@
 # Secuabase build — STATUS
 
-Updated: Oct 23, 2026 (Phase 1 build chat, after the Phase 1 code was built on `staging`).
+Updated: Oct 23, 2026 (Phase 1 build chat; code on `staging`, schema on staging and live).
 Read this first in every new chat. Update it when infra changes or a "Done when" item passes.
 
 ## Where we are
@@ -45,9 +45,9 @@ What exists on `staging`:
    (Reset Password). Both link to `/auth/confirm?token_hash=…` and show `{{ .Token }}`.
    SMTP: custom SMTP via Resend (host `smtp.resend.com`, port 465, user `resend`, password = a
    Resend API key, sender `login@secuabase.com`) so auth emails are not limited to 2 per hour.
-5. **Live database:** approve applying the same 5 migrations to `secuabase-live` (Claude's
-   attempt was blocked as a production change). Then create your admin user there (Phase 2 invite
-   flow, or `npm run seed` pointed at live with only the admin — do not load demo clients on live).
+5. **Live admin user:** the live schema is applied (Oct 23, approved by Bugra). Create your admin
+   user there in Phase 2 (invite flow, or `npm run seed` pointed at live with only the admin — never
+   load the demo clients on live).
 6. **Supabase plan:** upgrade the org to Pro before Phase 2 ships cron jobs (Free pauses idle projects).
 7. Delete the paused Tokyo project (`osqndtpucmsrwgvnihez`, status INACTIVE).
 8. **Resend test:** a branded test email was sent Oct 23 from `login@secuabase.com` to your Gmail
@@ -59,7 +59,7 @@ What exists on `staging`:
 | --- | --- | --- |
 | Supabase org | exists, **Free plan** | org `secuabase` (`venrmezermywefxdsmqt`) |
 | Supabase staging | **schema applied + seeded** (5 migrations, 6 tables, RLS on) | `secuabase-staging`, ref `ivezobdhppfrrxwojsap`, eu-central-1, Postgres 17 |
-| Supabase live | exists, **empty**; migrations wait for Bugra's approval | `secuabase-live`, ref `hjxzlspisflxqsiyigmy`, eu-central-1, Postgres 17 |
+| Supabase live | **schema applied** (same 5 migrations, 6 tables, RLS on, 5 plans); 0 users, 0 clients | `secuabase-live`, ref `hjxzlspisflxqsiyigmy`, eu-central-1, Postgres 17 |
 | Supabase Tokyo project | **paused, to delete** | ref `osqndtpucmsrwgvnihez`, ap-northeast-1 |
 | Vercel project | exists, under team `secuabase`; **connector has no team scope** | `secuabase-dashboard`, `prj_F8L7sCsTHWWE5Fi7q8wUo3CF4KIR`, team `team_pINlkCgSX6uqVPNSrihUmfmu` |
 | Vercel domains | `app.` → Vercel CNAME ✓ (public DNS); `supplier.` and `pay.` have **no DNS records** | CNAME target `58b2bb7304e3fb2f.vercel-dns-017.com` |
@@ -77,8 +77,7 @@ What exists on `staging`:
 2. **Sender address:** auth emails `login@secuabase.com` (used for the test). Supplier requests
    `requests@secuabase.com` vs one per client — still open, needed in Phase 3.
 3. **DMARC reports** go to a GoDaddy mailbox. Point `rua` to a mailbox Bugra reads before go-live.
-4. **Live migrations** need Bugra's go-ahead (see manual step 5).
-5. **Figma vs spec numbers:** the shell follows the Figma geometry (top bar 70 px, avatar 48 px,
+4. **Figma vs spec numbers:** the shell follows the Figma geometry (top bar 70 px, avatar 48 px,
    headings Poppins 400) where the spec text said 64 / 40 / 600. Say which to keep.
 
 ## Phase 1 "Done when" tracker
