@@ -4,10 +4,10 @@ Updated Oct 23, 2026. No secrets here. Keys live only in Vercel / Supabase setti
 
 | Service | Status | Details |
 | --- | --- | --- |
-| GitHub | Not set up | No repo yet. Bugra creates an empty repo, then Claude pushes `main` + `staging`. |
+| GitHub | Ready | https://github.com/secuabase/main — branches `main` (live) and `staging` (test). |
 | Supabase | Staging ready | Project `secuabase-staging`, ref `ivezobdhppfrrxwojsap`, eu-central-1 (Frankfurt), URL https://ivezobdhppfrrxwojsap.supabase.co. Live project: create before go-live. The old project in Tokyo (`osqndtpucmsrwgvnihez`) is not used. |
 | Vercel | Not set up | No team and no GitHub link on the account. Needs Pro (commercial use) and the GitHub repo. |
-| Resend | Domain added, DNS pending | `secuabase.com`, region **ap-northeast-1 (Tokyo)**. The plan says EU. Sending on, receiving off, tracking off. |
+| Resend | Domain added, DNS pending | `secuabase.com`, region ap-northeast-1 (Tokyo), kept on purpose (Bugra, Oct 23). Sending on, receiving off, tracking off. |
 | Slack | Channel ready | `#secuabase-ops` (C0CBKP385UJ). Incoming webhook not made yet. |
 | n8n | Not used | Background jobs run inside the app (Supabase cron + queue), as the plan says. |
 
