@@ -23,6 +23,22 @@ What exists on `staging`:
 - Tests: `npm run test:rls` (Vitest, staging), `npm run test:e2e` (Playwright, dev server).
 - CI: `.github/workflows/ci.yml` (lint, types, build, then RLS tests against staging).
 
+## GitHub remote (found Oct 23 afternoon)
+
+`https://github.com/secuabase/main` (public, owned by the GitHub **user** `secuabase`; collaborator
+`bugrabuyukduykularr-cloud` = the login saved on this Mac). Its `main` and `staging` already hold an
+**older scaffold from a separate Claude session this morning** (Next 15, pnpm, empty app, 7 commits,
+last "Vercel project linked and deploying"). That scaffold is what `app.secuabase.com` serves today.
+Its `docs/integrations.md` records facts missing here:
+- Vercel `secuabase-dashboard` is **already linked to this repo** (production = `main`), plan **Hobby**
+  (non-commercial; move to Pro before the first paid client). Env vars already set in Vercel:
+  Supabase URL + publishable + secret key, `RESEND_API_KEY`, `SLACK_WEBHOOK_URL`.
+- Slack: channel `#secuabase-ops` (C0CBKP385UJ), app "Secuabase Alerts" with an incoming webhook.
+- Resend inbound addresses planned as `req-<id>@reply.secuabase.com`.
+Reconcile = merge that remote history into ours (keep our files, keep their `docs/integrations.md`,
+drop `pnpm-lock.yaml`, `postcss.config.mjs`, `docs/00-Build-Plan.md`, `docs/handoffs`, `docs/phases`),
+then push. Pushing `staging` gives the Phase 1 preview; `main` stays the old scaffold until the demo passes.
+
 ## Bugra's manual steps (Claude cannot do these)
 
 1. **GitHub:** create an empty private repo (suggested `secuabase/secuabase-platform`), then in
