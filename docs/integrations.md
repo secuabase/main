@@ -22,3 +22,14 @@ Updated Oct 23, 2026. No secrets here. Keys live only in Vercel / Supabase setti
 
 Inbound replies (module 9): turn on receiving only on a subdomain such as `reply.secuabase.com`.
 An MX record on the root domain would take over the normal secuabase.com mailboxes.
+
+## Resend inbound (reply.secuabase.com)
+
+Receive only, region ap-northeast-1. Each request gets its own address, e.g. `req-<id>@reply.secuabase.com`.
+
+| Type | Name | Value | Priority |
+| --- | --- | --- | --- |
+| MX | `reply` | `receive-apne1.forge.rmta.net` | 10 |
+| TXT (DKIM) | `resend._domainkey.reply` | see the Resend dashboard (long `p=MIGf…` key) | — |
+
+The app's webhook for `email.received` is added in Phase 5, when the endpoint exists.
