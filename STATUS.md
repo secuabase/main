@@ -44,10 +44,16 @@ and `staging` (= all Phase 1 work).
   Vercel on push. It sits behind Vercel **Deployment Protection** (redirects to vercel.com SSO):
   open it while logged in to Vercel, or turn protection off for previews in Vercel → Settings →
   Deployment Protection so the Friday demo and e2e tests can reach it.
-- **GitHub Actions CI** ran on `staging` and **failed at `npm ci`** (lint/build/RLS skipped). Also
-  `@playwright/test` is used by `tests/e2e` but missing from `devDependencies`. Both being fixed.
-  CI secrets still to add in GitHub → Settings → Secrets → Actions: `STAGING_SUPABASE_URL`,
-  `STAGING_SUPABASE_PUBLISHABLE_KEY`, `SEED_PASSWORD`.
+- **GitHub Actions CI** (`staging`, run 39954310986): **lint + types + build green**. The RLS job
+  fails only because the repo has no Actions secrets yet. **Bugra:** GitHub → Settings → Secrets and
+  variables → Actions → add `STAGING_SUPABASE_URL` (`https://ivezobdhppfrrxwojsap.supabase.co`),
+  `STAGING_SUPABASE_PUBLISHABLE_KEY` (`sb_publishable_L87J2UftiFJWswdTJnYVSQ_-GfKTV01`),
+  `SEED_PASSWORD` (`Secuabase-Seed-2026!`), then re-run the workflow.
+- Two CI fixes landed on `staging` Oct 23: CI runs on Node 24 with `@playwright/test` in
+  devDependencies, and **`package-lock.json` must be regenerated in a Linux container** after any
+  dependency change (macOS npm omits `@emnapi/*` optional packages and `npm ci` on the runner
+  rejects the lock). Recipe: copy `package.json` + lock to a scratch dir, run
+  `docker run --rm -v "$DIR":/w -w /w node:24 npm install --package-lock-only`, copy the lock back.
 
 ## Bugra's manual steps (Claude cannot do these)
 
@@ -125,8 +131,9 @@ live has the schema + plans only; browser check on localhost: password login as 
 - [x] Seed data loads with one command — `supabase/seed.sql` applied; `npm run seed` needs `SUPABASE_SECRET_KEY`.
 - [ ] Test email from Resend reaches Gmail inbox — sent Oct 23; **Bugra confirms Inbox, not Spam.**
 
-**Verdict:** code complete; deployment and two email settings are waiting on Bugra's manual steps.
-Phase 2 can start on the code while those land, but the Friday demo needs the staging link.
+**Verdict (Oct 23, end of day):** code complete and pushed; staging preview deployed (behind Vercel
+protection); CI build green. Still on Bugra: Actions secrets, preview protection, Supabase OTP/email
+settings, `supplier.`/`pay.` DNS, Gmail inbox check. Phase 2 can start.
 
 ## Seed users (staging only, password `Secuabase-Seed-2026!`)
 
