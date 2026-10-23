@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
+/* Secuabase v3 brand tokens. Orange is for signals only. */
 :root {
+  --persian-blue: #2634b9;
+  --midnight: #1b207c;
+  --byzantine: #4759d5;
+  --orange: #f76a2b;
+  --emerald: #0b7a5b;
+  --persian-red: #c23c25;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1b207c;
 }
 
 @theme inline {
+  --color-persian-blue: var(--persian-blue);
+  --color-midnight: var(--midnight);
+  --color-byzantine: var(--byzantine);
+  --color-orange: var(--orange);
+  --color-emerald: var(--emerald);
+  --color-persian-red: var(--persian-red);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d1040;
+    --foreground: #eef0fb;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), system-ui, sans-serif;
 }
