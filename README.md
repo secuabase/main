@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Secuabase platform
 
-## Getting Started
+One Next.js app, three portals:
 
-First, run the development server:
+- **Admin** (`/admin`, only Bugra, needs 2-step login) — review, clients, invites, billing.
+- **Client** (`/app`) — the client's products, suppliers, filings, assistant, billing.
+- **Supplier** (`/s/<token>`, `supplier.secuabase.com`) — no login, a secure link per request.
+- `pay.secuabase.com` → `/pay` (Stripe Checkout links later).
+
+Stack: Next.js 16 (App Router, `src/`, Turbopack), React 19, TypeScript, Tailwind v4, shadcn/ui
+(base-nova), Supabase (Postgres, Auth, Storage) in Frankfurt, Vercel. Design source: the Figma file
+in `CLAUDE.md`; brand tokens live in `src/app/globals.css`.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local   # fill in the values below
+npm install
+npm run dev                  # http://localhost:3000 → /login
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Variable | What it is |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (staging for local dev) |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | `sb_publishable_…` key (never the secret key) |
+| `SUPABASE_SECRET_KEY` | Server only. Needed by `npm run seed` and `npm run test:rls` |
+| `SEED_PASSWORD` | Password the seed users get (default `Secuabase-Seed-2026!`) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other scripts:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run seed       # load the v2 sample clients and users into the project in .env.local
+npm run test:rls   # row-level-security tests, one file per role
+npm run lint       # eslint
+npm run build      # production build (no live Supabase needed)
+```
 
-## Learn More
+## Auth in short
 
-To learn more about Next.js, take a look at the following resources:
+- Password login, or email link + 6-digit code (`/login` → `/check-email`).
+- "Remember this device" off = browser session cookie; on = 30 days
+  (see `src/lib/supabase/cookie-policy.ts`).
+- Admins must pass TOTP 2-step login (`/admin/setup-2fa`, `/admin/verify-2fa`) before any `/admin` page.
+- Gates and host routing live in `src/proxy.ts`. Server actions live in `src/lib/auth/actions.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Branches
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `main` = live. `staging` = test copy; every push deploys a preview on Vercel.
+- One PR per task, tests must pass. Demo on staging every Friday.
 
-## Deploy on Vercel
+## Where things are
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/(auth)      login, check-email, forgot/reset password, no-access, admin 2FA pages
+src/app/(admin)     /admin shell + pages      src/app/(client)   /app shell + pages
+src/app/s           supplier portal           src/app/pay        payment placeholder
+src/app/auth        /auth/confirm (email links), /auth/logout
+src/components/shell  top bar, phone nav, theme, page header, empty state
+src/components/auth   forms                   src/components/ui  shadcn components
+src/lib/supabase    browser / server / proxy clients, cookie policy
+src/lib/auth        actions, redirect rules, error messages
+supabase/           migrations                scripts/seed.ts    seed data
+tests/rls           RLS tests                 docs/              build plan + spec
+```

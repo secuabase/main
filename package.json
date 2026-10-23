@@ -6,10 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:e2e": "playwright test",
+    "seed": "tsx scripts/seed.ts",
+    "test:rls": "vitest run tests/rls"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@sentry/nextjs": "^11.9.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
     "class-variance-authority": "^0.7.1",
@@ -19,8 +23,11 @@
     "lucide-react": "^1.61.0",
     "next": "16.4.2",
     "next-themes": "^0.4.6",
+    "posthog-js": "^1.438.20",
+    "posthog-node": "^5.57.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
     "shadcn": "^4.22.1",
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.7.0",

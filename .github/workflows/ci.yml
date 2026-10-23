@@ -1,0 +1,53 @@
+# CI for every push and pull request.
+# Lint + type check + build run on every branch.
+# RLS tests run against the STAGING Supabase project with the seeded users
+# (secrets live in GitHub → Settings → Secrets → Actions, never in code).
+name: CI
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, types, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY }}
+
+  rls:
+    name: RLS tests (staging)
+    runs-on: ubuntu-latest
+    needs: check
+    # One run at a time: the tests write and restore rows in the shared staging DB.
+    concurrency:
+      group: rls-staging
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run test:rls
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.STAGING_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.STAGING_SUPABASE_PUBLISHABLE_KEY }}
+          SEED_PASSWORD: ${{ secrets.SEED_PASSWORD }}
