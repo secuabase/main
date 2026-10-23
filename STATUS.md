@@ -35,9 +35,19 @@ Its `docs/integrations.md` records facts missing here:
   Supabase URL + publishable + secret key, `RESEND_API_KEY`, `SLACK_WEBHOOK_URL`.
 - Slack: channel `#secuabase-ops` (C0CBKP385UJ), app "Secuabase Alerts" with an incoming webhook.
 - Resend inbound addresses planned as `req-<id>@reply.secuabase.com`.
-Reconcile = merge that remote history into ours (keep our files, keep their `docs/integrations.md`,
-drop `pnpm-lock.yaml`, `postcss.config.mjs`, `docs/00-Build-Plan.md`, `docs/handoffs`, `docs/phases`),
-then push. Pushing `staging` gives the Phase 1 preview; `main` stays the old scaffold until the demo passes.
+**Reconciled and pushed Oct 23 afternoon:** remote history merged into ours (our files kept, their
+`docs/integrations.md` kept, their pnpm lock / postcss / duplicate plan dropped). Pushed `main`
+(= Next 16 scaffold + docs, no auth yet, so `/login` is 404 on production until the demo passes)
+and `staging` (= all Phase 1 work).
+
+- **Staging preview:** https://secuabase-dashboard-git-staging-secuabase.vercel.app — deployed by
+  Vercel on push. It sits behind Vercel **Deployment Protection** (redirects to vercel.com SSO):
+  open it while logged in to Vercel, or turn protection off for previews in Vercel → Settings →
+  Deployment Protection so the Friday demo and e2e tests can reach it.
+- **GitHub Actions CI** ran on `staging` and **failed at `npm ci`** (lint/build/RLS skipped). Also
+  `@playwright/test` is used by `tests/e2e` but missing from `devDependencies`. Both being fixed.
+  CI secrets still to add in GitHub → Settings → Secrets → Actions: `STAGING_SUPABASE_URL`,
+  `STAGING_SUPABASE_PUBLISHABLE_KEY`, `SEED_PASSWORD`.
 
 ## Bugra's manual steps (Claude cannot do these)
 
