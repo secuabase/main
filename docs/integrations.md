@@ -7,29 +7,18 @@ Updated Oct 23, 2026. No secrets here. Keys live only in Vercel / Supabase setti
 | GitHub | Ready | https://github.com/secuabase/main — branches `main` (live) and `staging` (test). |
 | Supabase | Staging ready | Project `secuabase-staging`, ref `ivezobdhppfrrxwojsap`, eu-central-1 (Frankfurt), URL https://ivezobdhppfrrxwojsap.supabase.co. Live project: create before go-live. The old project in Tokyo (`osqndtpucmsrwgvnihez`) is not used. |
 | Vercel | Hobby (free), project not made yet | Account hello@secuabase.com, team `team_pINlkCgSX6uqVPNSrihUmfmu`. Bugra imports `secuabase/main` at vercel.com/new. Move to Pro before the first paid client (Hobby = non-commercial use). |
-| Resend | Domain added, DNS pending | `secuabase.com`, region ap-northeast-1 (Tokyo), kept on purpose (Bugra, Oct 23). Sending on, receiving off, tracking off. |
+| Resend | Sending verified, inbound DNS pending | `secuabase.com` (sending, verified) and `reply.secuabase.com` (receive only), both us-east-1 (N. Virginia), tracking off. |
 | Slack | Channel ready | `#secuabase-ops` (C0CBKP385UJ). Incoming webhook not made yet. |
 | n8n | Not used | Background jobs run inside the app (Supabase cron + queue), as the plan says. |
 
-## Resend DNS records (secuabase.com)
-
-| Type | Name | Value | Status |
-| --- | --- | --- | --- |
-| TXT (DKIM) | `resend._domainkey` | see the Resend dashboard (long `p=MIGf…` key) | pending |
-| CNAME (SPF) | `rsend` | `rsend-apne1.forge.rmta.net` | pending |
-| CNAME (SPF) | `send` | `send.forge.rmta.net` | verified |
-| TXT (DMARC) | `_dmarc` | `v=DMARC1; p=none; rua=mailto:dmarc@secuabase.com` | add yourself |
-
-Inbound replies (module 9): turn on receiving only on a subdomain such as `reply.secuabase.com`.
-An MX record on the root domain would take over the normal secuabase.com mailboxes.
-
 ## Resend inbound (reply.secuabase.com)
 
-Receive only, region ap-northeast-1. Each request gets its own address, e.g. `req-<id>@reply.secuabase.com`.
+Receive only, region us-east-1. Each request gets its own address, e.g. `req-<id>@reply.secuabase.com`.
 
 | Type | Name | Value | Priority |
 | --- | --- | --- | --- |
-| MX | `reply` | `receive-apne1.forge.rmta.net` | 10 |
+| MX | `reply` | `receive.forge.rmta.net` | 10 |
 | TXT (DKIM) | `resend._domainkey.reply` | see the Resend dashboard (long `p=MIGf…` key) | — |
 
+Only the `reply` subdomain gets an MX record; the root domain keeps its normal mailboxes.
 The app's webhook for `email.received` is added in Phase 5, when the endpoint exists.
