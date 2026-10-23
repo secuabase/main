@@ -5,8 +5,32 @@ Read this first in every new chat. Update it when infra changes or a "Done when"
 
 ## Where we are
 
-Phase 0 (set-up by Bugra through the connectors) is partly done. Phase 1 (Foundation,
-Oct 26–30) has not started. No repo, no code, no database tables exist yet.
+Phase 1 (Foundation) started Oct 23 in this folder. The folder is now the git repo
+(branch `main`, first commit = scaffold). Code: Next.js 16 + Tailwind v4 + shadcn, `src/` dir, npm.
+Build spec for workers: `docs/phase-1-spec.md`. Figma references: `docs/reference/*.png`.
+
+## Bugra's manual steps for Phase 1 (Claude cannot do these)
+
+1. **GitHub:** create an empty private repo (suggested `secuabase/secuabase-platform`), then run in this folder:
+   `git remote add origin git@github.com:<org>/<repo>.git && git push -u origin main`
+   (`gh` CLI is not installed; the Homebrew install was stopped.)
+2. **Vercel:** in the `secuabase-dashboard` project, Settings → Git → connect that GitHub repo.
+   Production branch = `main`. Every push to `staging` then deploys a preview.
+   Also re-connect the Claude Vercel connector with the `secuabase` team scope, otherwise Claude
+   cannot read deployments, env vars or domains.
+3. **Supabase secret key:** paste the staging project's secret key into `.env.local` as
+   `SUPABASE_SECRET_KEY` (needed for `npm run seed` and `npm run test:rls`). Never commit it.
+4. **Supabase Auth settings (staging, repeat on live later):** Authentication → Providers → Email:
+   enable "Confirm email" off for invite flow? (keep default on), set **Email OTP expiration = 900 s**
+   (15 min) and **Email OTP length = 6**. Authentication → URL configuration: Site URL
+   `http://localhost:3000` for now (staging preview URL later), Redirect URLs
+   `http://localhost:3000/**`, `https://*-secuabase.vercel.app/**`. Authentication → Email
+   templates → Magic Link: body must include both `{{ .ConfirmationURL }}` and `{{ .Token }}`
+   (Claude will supply the branded template text). Authentication → SMTP: enable custom SMTP with
+   Resend (host `smtp.resend.com`, port 465, user `resend`, password = a Resend API key, sender
+   `login@secuabase.com`) so auth emails are not rate-limited to 2 per hour.
+5. **Supabase plan:** upgrade the org to Pro before Phase 1 ships cron jobs (Free pauses idle projects).
+6. Delete the paused Tokyo project (still listed, status INACTIVE).
 
 ## Infrastructure that already exists
 
@@ -42,6 +66,24 @@ Oct 26–30) has not started. No repo, no code, no database tables exist yet.
    covers Resend or that Resend's own `send.` subdomain is used as the envelope sender.
 5. **DMARC reports** go to a GoDaddy/onsecureserver mailbox. Fine for now; point `rua` to
    a mailbox Bugra reads before go-live.
+
+## Phase 1 hand-off (Oct 23, orchestration chat → new Phase 1 chat)
+
+Work was started here and then moved to its own chat. State on disk (all committed on `main`):
+- Scaffold: Next.js 16, Tailwind v4, Poppins, brand tokens in `src/app/globals.css`, favicon set
+  and logo SVGs in `public/`, `.env.local` with staging URL + publishable key (secret key blank).
+- shadcn/ui initialised (`components.json`, `src/components/ui/*`, `src/lib/utils.ts`,
+  semantic tokens mapped onto the brand in globals.css). Nothing else in `src/` yet.
+- `docs/phase-1-spec.md` = the full contract (schema, RLS, seed, auth flows, shell, file
+  ownership). `docs/reference/*.png` = Figma screenshots of every Phase 1 frame.
+- `docs/email-templates/` = branded Supabase magic-link and reset-password templates.
+- Figma: all Phase 1 frame ids are in the spec's reference names; file key `HfmabsPFN5IDF7x9OmylpJ`,
+  frames Access · Login `8:7316`, Check email `8:7516`, Login mobile `7:6845`, Check email mobile
+  `7:7061`, Admin · Overview `8:2`, Client · Home `8:3503`, Phone admin `3:8872`, Phone client `3:9179`,
+  Supplier · Requests `8:7907`.
+- Not started: migrations, seed, RLS tests, Supabase clients, proxy, auth pages, shell, deploys.
+- The new chat should run the two workers described in the spec (database + app/UI) in parallel,
+  then apply migrations to staging with the Supabase connector, seed, run RLS tests, and deploy.
 
 ## Phase 1 "Done when" tracker
 
