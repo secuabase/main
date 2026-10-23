@@ -41,11 +41,12 @@ Its `docs/integrations.md` records facts missing here:
 
 - **Live (Oct 23 evening):** `main` fast-forwarded to `staging` on Bugra's request and pushed.
   https://app.secuabase.com now serves Phase 1: `/login` 200, `/` → `/login`, `/app` and `/admin`
-  redirect to login. Checked in the browser (desktop, light): matches the Figma login. **Unknown:**
-  which Supabase project production uses — the URL is server-side only. Test: log in at
-  app.secuabase.com with `hello@secuabase.com` + the seed password. Works → production points at
-  **staging** (switch Vercel Production env vars to the live project before any real client).
-  "Wrong email or password" → production points at **live** (correct; admin user comes in Phase 2).
+  redirect to login. Checked in the browser (desktop, light): matches the Figma login. **Confirmed from the live auth logs (13:15 UTC):** production
+  talks to the **live** project `hjxzlspisflxqsiyigmy`. Live has **no auth users**, so every
+  login at app.secuabase.com fails (password → "invalid credentials", magic link → 422). The seed
+  accounts exist only in staging. To use production now, create Bugra's real admin user on live
+  (Supabase dashboard → Authentication → Users → Add user, auto-confirm) and set
+  `profiles.is_admin = true` for it; or use the staging preview for demos.
 - **Staging preview:** https://secuabase-dashboard-git-staging-secuabase.vercel.app — deployed by
   Vercel on push. It sits behind Vercel **Deployment Protection** (redirects to vercel.com SSO):
   open it while logged in to Vercel, or turn protection off for previews in Vercel → Settings →
