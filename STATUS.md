@@ -25,8 +25,9 @@ What exists on `staging`:
 
 ## GitHub remote (found Oct 23 afternoon)
 
-`https://github.com/secuabase/main` (public, owned by the GitHub **user** `secuabase`; collaborator
-`bugrabuyukduykularr-cloud` = the login saved on this Mac). Its `main` and `staging` already hold an
+`https://github.com/secuabase/main` (public, owned by the GitHub **user** `secuabase`; since Oct 23 evening git on
+this Mac pushes as `secuabase` with a fine-grained token; `bugrabuyukduykularr-cloud` can be removed
+from the collaborators). Its `main` and `staging` already hold an
 **older scaffold from a separate Claude session this morning** (Next 15, pnpm, empty app, 7 commits,
 last "Vercel project linked and deploying"). That scaffold is what `app.secuabase.com` serves today.
 Its `docs/integrations.md` records facts missing here:
